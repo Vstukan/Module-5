@@ -19,6 +19,7 @@ class UrTube:
         self.users = []
         self.videos = []
         self.current_user = None
+        self.adult_mode = False # добавил параметр
      def log_in(self, nickname: str, password: str):
          for user in self.users:
              if nickname == user.nickname and password == user.password:
@@ -49,15 +50,17 @@ class UrTube:
          return list_video
 
      def watch_video(self, film: str):
-         if self.current_user and self.current_user.age < 18:
+         if self.adult_mode == True:  #добавил adult_mode
+             print('Вам нет 18 лет, пожалуйста покиньте страницу')
+         elif self.current_user and self.current_user.age < 18:
              print('Вам нет 18 лет, пожалуйста покиньте страницу')
          elif self.current_user:
-             for video in self.videos:
-                 if film in video.title:
-                     for i in range(1, 11):
+                for video in self.videos:
+                    if film in video.title:
+                        for i in range(1, 11):
                          print(i, end=' ')
                          time.sleep(1)
-                     print('Конец видео')
+                        print('Конец видео')
          else :
              print('Войдите в аккаунт, чтобы смотреть видео')
 
